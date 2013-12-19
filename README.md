@@ -12,8 +12,8 @@ If you want to read the stable documentation visit [0.8 README](https://github.c
 
 ## Purpose
 
-`ActiveModel::Serializers` encapsulates the JSON serialization of objects. 
-Objects that respond to read\_attribute\_for\_serialization 
+`ActiveModel::Serializers` encapsulates the JSON serialization of objects.
+Objects that respond to read\_attribute\_for\_serialization
 (including `ActiveModel` and `ActiveRecord` objects) are supported.
 
 Serializers know about both a model and the `current_user`, so you can
@@ -69,7 +69,7 @@ $ rails g serializer post
 
 Currently `ActiveModel::Serializers` expects objects to implement
 read\_attribute\_for\_serialization. That's all you need to do to have
-your POROs supported. 
+your POROs supported.
 
 # ActiveModel::Serializer
 
@@ -551,8 +551,8 @@ this:
 }
 ```
 
-When side-loading data, your serializer cannot have the `{ root: false }` option, 
-as this would lead to invalid JSON. If you do not have a root key, the `include` 
+When side-loading data, your serializer cannot have the `{ root: false }` option,
+as this would lead to invalid JSON. If you do not have a root key, the `include`
 instruction will be ignored
 
 You can also specify a different root for the embedded objects than the key
