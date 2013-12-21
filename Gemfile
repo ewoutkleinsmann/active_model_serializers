@@ -22,3 +22,5 @@ platforms :rbx do
 end
 
 gem 'rails', "~> 4.0.0"
+
+gem 'rdoc'
