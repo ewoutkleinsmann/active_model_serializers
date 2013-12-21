@@ -1,29 +1,56 @@
 require 'active_support/core_ext/class/attribute'
 
 module ActionController
-  # Action Controller Serialization
-  #
-  # Overrides render :json to check if the given object implements +active_model_serializer+
-  # as a method. If so, use the returned serializer instead of calling +to_json+ on the object.
-  #
-  # This module also provides a serialization_scope method that allows you to configure the
-  # +serialization_scope+ of the serializer. Most apps will likely set the +serialization_scope+
-  # to the current user:
-  #
-  #    class ApplicationController < ActionController::Base
-  #      serialization_scope :current_user
-  #    end
-  #
-  # If you need more complex scope rules, you can simply override the serialization_scope:
-  #
-  #    class ApplicationController < ActionController::Base
-  #      private
-  #
-  #      def serialization_scope
-  #        current_user
-  #      end
-  #    end
-  #
+=begin rdoc
+
+Serializers integrate with Rails' +ActionController+ overriding the JSON
+renderer so that calls to <tt>ActionController::Base#render</tt> use a
+serializer instance instead of <tt>Object#to_json</tt>.
+
+For example:
+
+    class PostsController < ApplicationController
+      def show
+        @post = Post.find params[:id]
+        render json: @post # serialize using PostSerializer
+      end
+    end
+
+The above +render+ call uses a +PostSerializer+ instance to generate JSON.
+
+By default, the +PostSerializer+ class is inferred from the <tt>@post</tt>
+instance. If a matching serializer class can't be found, rendering falls back
+to the default renderer. You can override the serializer class using a
+<tt>:serializer</tt> option:
+
+    class PostsController < ApplicationController
+      def show
+        @post = Post.find params[:id]
+        render json: @post, serializer: OtherPostSerializer
+      end
+    end
+
+Serializers also provide +ActionController+ with a convenience
++serialization_scope+ class method that allows specifying a method name to be
+used as scope for the serializer. In most cases, applications will scope the
+serialization to the current user:
+
+   class ApplicationController < ActionController::Base
+     serialization_scope :current_user
+   end
+
+If you need more complex scope rules, you can override the
++serialization_scope+ controller instance method instead:
+
+   class ApplicationController < ActionController::Base
+     private
+
+     def serialization_scope
+       current_user || guest_user
+     end
+   end
+
+=end
   module Serialization
     extend ActiveSupport::Concern
 
@@ -35,6 +62,8 @@ module ActionController
     end
 
     module ClassMethods
+      # Specify a method name to be used as +serialization_scope+ in
+      # serializers.
       def serialization_scope(scope)
         self._serialization_scope = scope
       end

@@ -12,5 +12,4 @@ begin
     include ::ActionController::Serialization
   end
 rescue LoadError
-  # rails not installed, continuing
 end

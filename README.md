@@ -2,7 +2,7 @@
 [![Code Climate](https://codeclimate.com/github/rails-api/active_model_serializers.png)](https://codeclimate.com/github/rails-api/active_model_serializers)
 [![Coverage Status](https://coveralls.io/repos/rails-api/active_model_serializers/badge.png?branch=master)](https://coveralls.io/r/rails-api/active_model_serializers)
 
-# ActiveModel::Serializers
+# Active Model Serializers
 
 ## Master - 0.9.0
 
