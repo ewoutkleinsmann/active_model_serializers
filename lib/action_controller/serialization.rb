@@ -69,6 +69,8 @@ If you need more complex scope rules, you can override the
       end
     end
 
+    private
+
     def _render_option_json(resource, options)
       serializer = build_json_serializer(resource, options)
 
@@ -78,8 +80,6 @@ If you need more complex scope rules, you can override the
         super
       end
     end
-
-    private
 
     def default_serializer_options
       {}
